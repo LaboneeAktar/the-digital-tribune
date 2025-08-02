@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const LatestNews = () => {
   return (
-    <div className="bg-gray-200 mt-7 lg:max-w-5xl mx-auto rounded-sm">
+    <div className="bg-gray-200 mt-7 mx-auto rounded-sm">
       <div className="flex gap-2 items-center justify-center p-3">
-        <p className="py-2 px-4 bg-[#D72050] text-white rounded-sm">Latest</p>
+        <p className="py-2 px-6 bg-[#D72050] text-white rounded-sm">Latest</p>
         <Marquee className="space-x-10" pauseOnHover={true}>
           <Link to="/news">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
