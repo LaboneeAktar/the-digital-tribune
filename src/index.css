@@ -2,6 +2,22 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+@theme {
+  --color-reddish: #d72050;
+  --color-greenish: #008000;
+  --animate-text-gradient: text-gradient 3s ease-in-out infinite alternate;
+
+  @keyframes text-gradient {
+    0%,
+    15% {
+      background-position: 0 50%;
+    }
+    85%,
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+}
 
 body {
   font-family: "Merriweather", serif;
