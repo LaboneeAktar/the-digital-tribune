@@ -1,7 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 
 const Navbar = () => {
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
+
   const links = (
     <>
       <li>
@@ -36,7 +41,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="mt-5 mb-12">
+    <div className="mt-5">
       <div className="navbar shadow-sm lg:px-4">
         <div className="navbar-start">
           <div className="dropdown">
@@ -75,15 +80,41 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <BsPersonCircle className="h-7 w-7 mr-2" />
-          <Link
-            to="/login"
-            className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
-          >
-            <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
-            <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out ">
-              Login
-            </span>
-          </Link>
+
+          {!isLoginPage && !isRegisterPage && (
+            <Link
+              to="/login"
+              className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
+            >
+              <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+              <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out ">
+                Login
+              </span>
+            </Link>
+          )}
+          {isLoginPage && (
+            <Link
+              to="/register"
+              className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
+            >
+              <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+              <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out ">
+                Register Now
+              </span>
+            </Link>
+          )}
+
+          {isRegisterPage && (
+            <Link
+              to="/login"
+              className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
+            >
+              <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+              <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out ">
+                Login
+              </span>
+            </Link>
+          )}
         </div>
       </div>
     </div>

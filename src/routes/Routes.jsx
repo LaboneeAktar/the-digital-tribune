@@ -1,10 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../Pages/Home";
 import About from "../Pages/About";
 import Career from "../Pages/Career";
 import ErrorPage from "../components/ErrorPage";
 import CategoryNews from "../Pages/CategoryNews";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -13,9 +16,13 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: "/",
+        path: "/",
         element: <Home />,
         children: [
+          {
+            path: "",
+            element: <Navigate to={`/category/01`}></Navigate>,
+          },
           {
             path: "/category/:id",
             element: <CategoryNews />,
@@ -33,6 +40,20 @@ export const router = createBrowserRouter([
       {
         path: "/career",
         element: <Career />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

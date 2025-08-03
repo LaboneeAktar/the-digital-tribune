@@ -5,7 +5,7 @@ import RightNavbar from "../components/Navbar/RightNavbar";
 const Home = () => {
   return (
     <div>
-      <main className="w-10/12 mx-auto grid lg:grid-cols-12 gap-6">
+      <main className="w-10/12 mx-auto grid lg:grid-cols-12 gap-6 mt-12">
         {/* Left Navbar */}
         <aside className="col-span-3">
           <LeftNavbar />
