@@ -7,7 +7,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/">
           {({ isActive }) => (
-            <span className={isActive ? "text-[#D72050]" : "text-gray-700"}>
+            <span className={isActive ? "text-reddish" : "text-gray-700"}>
               Home
             </span>
           )}
@@ -17,7 +17,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/about">
           {({ isActive }) => (
-            <span className={isActive ? "text-[#D72050]" : "text-gray-700"}>
+            <span className={isActive ? "text-reddish" : "text-gray-700"}>
               About
             </span>
           )}
@@ -26,7 +26,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/career">
           {({ isActive }) => (
-            <span className={isActive ? "text-[#D72050]" : "text-gray-700"}>
+            <span className={isActive ? "text-reddish" : "text-gray-700"}>
               Career
             </span>
           )}
@@ -36,8 +36,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="my-5">
-      <div className="navbar">
+    <div className="mt-5 mb-12">
+      <div className="navbar shadow-sm lg:px-4">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -79,7 +79,7 @@ const Navbar = () => {
             to="/login"
             className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
           >
-            <span className="w-48 h-48 rounded rotate-[-40deg] bg-[#D72050] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+            <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
             <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out ">
               Login
             </span>
