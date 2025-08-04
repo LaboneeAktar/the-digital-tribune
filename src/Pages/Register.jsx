@@ -2,12 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
 
-  function handleChange(e) {
-    // console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const name = form.get("name");
+    const email = form.get("email");
+    const password = form.get("password");
+    const image = form.get("image");
+    const imageUrl = URL.createObjectURL(image);
+    setImage(imageUrl);
+    console.log({ name, email, password, image, imageUrl });
+  };
+
   return (
     <div>
       <div className="min-h-screen flex justify-center items-center my-10">
@@ -18,10 +26,10 @@ const Register = () => {
               Register to create your account
             </p>
           </div>
-          <form className="space-y-12 px-10">
+          <form onSubmit={handleSubmit} className="space-y-12 px-10">
             <div className="space-y-4">
               <div>
-                <label className="block mb-2 text-md font-bold" name="name">
+                <label className="block mb-2 text-md font-bold">
                   Your Name
                 </label>
                 <input
@@ -34,7 +42,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="block mb-2 text-md font-bold" name="email">
+                <label className="block mb-2 text-md font-bold">
                   Email Address
                 </label>
                 <input
@@ -46,9 +54,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="text-md font-bold " name="password">
-                  Password
-                </label>
+                <label className="text-md font-bold ">Password</label>
 
                 <input
                   type="password"
@@ -72,16 +78,23 @@ const Register = () => {
                   className="form-label block mb-2 text-md font-bold"
                   id="profile-picture"
                 >
-                  Upload Profile Image
+                  Upload Profile Picture
                 </label>
                 <input
                   type="file"
-                  onChange={handleChange}
+                  name="image"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setImage(URL.createObjectURL(file));
+                    }
+                  }}
                   className=" w-full text-sm text-slate-800 file:mr-2 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-gray-200 hover:file:cursor-pointer"
                 />
-                {file && (
+                {image && (
                   <img
-                    src={file}
+                    src={image}
                     className="absolute h-12 w-12 rounded-full -top-4 left-44 m-2"
                     alt="Uploaded preview"
                   />
@@ -93,7 +106,7 @@ const Register = () => {
               </label>
               <div className="space-y-4 flex flex-col justify-center items-center pt-2">
                 <button
-                  type="button"
+                  type="submit"
                   className=" w-1/2 relative inline-flex items-center justify-center px-2 lg:px-7 py-3 overflow-hidden font-medium transition-all bg-gray-700 rounded group"
                 >
                   <span className="w-48 h-48 rounded rotate-[-40deg] bg-[#D72050] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>

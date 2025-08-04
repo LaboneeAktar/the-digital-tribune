@@ -1,8 +1,13 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Navbar = () => {
+  const [showDetails, setShowDetails] = useState(false);
+
   const location = useLocation();
+  const { user } = useContext(AuthContext);
 
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
@@ -79,7 +84,50 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 text-lg">{links}</ul>
         </div>
         <div className="navbar-end">
-          <BsPersonCircle className="h-7 w-7 mr-2" />
+          {/* Profile */}
+
+          <div className="flex justify-end p-2">
+            {!user ? (
+              <BsPersonCircle className="text-4xl text-gray-500" />
+            ) : (
+              <div className="relative">
+                <img
+                  src={user.image}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
+                  onClick={() => setShowDetails(!showDetails)}
+                />
+
+                {/* Profile details dropdown */}
+                {showDetails && (
+                  <div className="absolute -right-32 mt-2 w-64 bg-white rounded-md shadow-lg p-4 z-50 border border-gray-200">
+                    <div className="flex items-center space-x-4 mb-3 pt-4">
+                      <img
+                        src={user.image}
+                        alt="Profile"
+                        className="w-12 h-12 rounded-full border"
+                      />
+                      <div>
+                        <h3 className="font-semibold">{user.name}</h3>
+                        <p className="text-sm text-gray-600">{user.email}</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between gap-2 mt-10">
+                      <button
+                        onClick={() => setShowDetails(false)}
+                        className="btn btn-sm w-1/2 bg-gray-300 hover:bg-reddish hover:text-white"
+                      >
+                        Close
+                      </button>
+                      <button className="btn btn-sm w-1/2 bg-gray-300 hover:bg-reddish hover:text-white">
+                        Log Out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {!isLoginPage && !isRegisterPage && (
             <Link
