@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+  const { userLogin, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = new FormData(event.target);
     const email = form.get("email");
     const password = form.get("password");
-    console.log({ email, password });
+    // console.log({ email, password });
+    userLogin(email, password)
+      .then((result) => {
+        // Signed In
+        const user = result.user;
+        setUser(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
   return (
     <div>
@@ -30,6 +47,7 @@ const Login = () => {
                   id="email"
                   placeholder="Enter your Email"
                   className="w-full p-3  rounded-md bg-gray-200 dark:text-gray-800"
+                  required
                 />
               </div>
               <div>
@@ -43,6 +61,7 @@ const Login = () => {
                   id="password"
                   placeholder="Enter Your Password"
                   className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800"
+                  required
                 />
                 <div className="flex justify-end">
                   <Link

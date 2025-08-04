@@ -7,7 +7,7 @@ const Navbar = () => {
   const [showDetails, setShowDetails] = useState(false);
 
   const location = useLocation();
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
@@ -103,7 +103,7 @@ const Navbar = () => {
                   <div className="absolute -right-32 mt-2 w-64 bg-white rounded-md shadow-lg p-4 z-50 border border-gray-200">
                     <div className="flex items-center space-x-4 mb-3 pt-4">
                       <img
-                        src={user.image}
+                        src={user.imageUrl}
                         alt="Profile"
                         className="w-12 h-12 rounded-full border"
                       />
@@ -119,7 +119,10 @@ const Navbar = () => {
                       >
                         Close
                       </button>
-                      <button className="btn btn-sm w-1/2 bg-gray-300 hover:bg-reddish hover:text-white">
+                      <button
+                        onClick={logOut}
+                        className="btn btn-sm w-1/2 bg-gray-300 hover:bg-reddish hover:text-white"
+                      >
                         Log Out
                       </button>
                     </div>
@@ -129,7 +132,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {!isLoginPage && !isRegisterPage && (
+          {!isLoginPage && !isRegisterPage && !user && (
             <Link
               to="/login"
               className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
@@ -140,7 +143,7 @@ const Navbar = () => {
               </span>
             </Link>
           )}
-          {isLoginPage && (
+          {isLoginPage && !user && (
             <Link
               to="/register"
               className="relative inline-flex items-center justify-start px-2 lg:px-7 py-2 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
@@ -152,7 +155,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          {isRegisterPage && (
+          {isRegisterPage && !user && (
             <Link
               to="/login"
               className="relative inline-flex items-center justify-start px-2 lg:px-7 py-1 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"

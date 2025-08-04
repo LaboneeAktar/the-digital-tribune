@@ -1,8 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Register = () => {
   const [image, setImage] = useState(null);
+  const { createNewUser, setUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,6 +18,20 @@ const Register = () => {
     const imageUrl = URL.createObjectURL(image);
     setImage(imageUrl);
     console.log({ name, email, password, image, imageUrl });
+
+    // Create User
+    createNewUser(email, password)
+      .then((result) => {
+        // Signed up
+        const user = result.user;
+        setUser(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   return (
@@ -38,6 +56,7 @@ const Register = () => {
                   id="name"
                   placeholder="Enter your Name"
                   className="w-full p-3  rounded-md bg-gray-200 dark:text-gray-800"
+                  required
                 />
               </div>
 
@@ -51,6 +70,7 @@ const Register = () => {
                   id="email"
                   placeholder="Enter your Email"
                   className="w-full p-3  rounded-md bg-gray-200 dark:text-gray-800"
+                  required
                 />
               </div>
               <div>
@@ -62,6 +82,7 @@ const Register = () => {
                   id="password"
                   placeholder="Enter Your Password"
                   className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800"
+                  required
                 />
                 <div className="flex justify-end">
                   <Link
@@ -101,7 +122,11 @@ const Register = () => {
                 )}
               </div>
               <label className="label text-sm  mt-2" id="checkbox">
-                <input type="checkbox" className="checkbox checkbox-xs" />
+                <input
+                  type="checkbox"
+                  className="checkbox checkbox-xs"
+                  required
+                />
                 Accept our terms and condition.
               </label>
               <div className="space-y-4 flex flex-col justify-center items-center pt-2">
