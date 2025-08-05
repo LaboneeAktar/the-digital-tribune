@@ -4,7 +4,7 @@ import { AuthContext } from "../provider/AuthContext";
 import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createNewUser, updateUser } = useContext(AuthContext);
+  const { createNewUser, setUser, updateUser } = useContext(AuthContext);
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ const Register = () => {
       .then((result) => {
         // Signed up
         const user = result.user;
-        // setUser(user);
-        console.log(user);
+        setUser(user);
+        // console.log(user);
         const userInfo = {
           displayName: name,
           photoURL: imageUrl,
