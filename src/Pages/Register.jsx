@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { createNewUser, updateUser } = useContext(AuthContext);
+  const [error, setError] = useState({});
 
   const navigate = useNavigate();
 
@@ -14,6 +16,10 @@ const Register = () => {
     event.preventDefault();
     const form = new FormData(event.target);
     const name = form.get("name");
+    if (name.length < 5) {
+      setError({ ...error, name: "Your name must be more than 5 Character." });
+      return;
+    }
     const email = form.get("email");
     const password = form.get("password");
     const imageUrl = form.get("image");
@@ -30,13 +36,12 @@ const Register = () => {
           photoURL: imageUrl,
         };
         updateUser(userInfo);
+        toast.success("Successfully Created Your Account");
 
         navigate(from, { replace: true });
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+      .catch((err) => {
+        setError({ ...err, login: err.message });
       });
   };
 
@@ -64,6 +69,11 @@ const Register = () => {
                   className="w-full p-3  rounded-md bg-gray-200 dark:text-gray-800"
                   required
                 />
+                {error.name && (
+                  <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
+                    {error.name}
+                  </label>
+                )}
               </div>
 
               <div>
@@ -107,15 +117,11 @@ const Register = () => {
                   className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800 mt-2"
                   required
                 />
-                <div className="flex justify-end">
-                  <Link
-                    rel="noopener noreferrer"
-                    href="#"
-                    className="text-xs pt-2 hover:underline dark:text-gray-600"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
+                {error.login && (
+                  <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
+                    {error.login}
+                  </label>
+                )}
               </div>
 
               <label className="label text-sm  mt-2" id="checkbox">

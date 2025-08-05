@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { userLogin, setUser } = useContext(AuthContext);
+  const [error, setError] = useState({});
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -21,12 +23,11 @@ const Login = () => {
         // Signed In
         const user = result.user;
         setUser(user);
+        toast.success("Successfully Login");
         navigate(from, { replace: true });
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+      .catch((err) => {
+        setError({ ...err, login: "Wrong Password" });
       });
   };
   return (
@@ -76,6 +77,11 @@ const Login = () => {
                     Forgot password?
                   </Link>
                 </div>
+                {error.login && (
+                  <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
+                    {error.login}
+                  </label>
+                )}
               </div>
               <div className="space-y-4 flex flex-col justify-center items-center pt-2">
                 <button
