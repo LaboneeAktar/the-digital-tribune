@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -34,6 +35,12 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  //reset Password
+  const resetPassword = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
+
   // Logout User
   const logOut = () => {
     setLoading(true);
@@ -55,6 +62,7 @@ const AuthProvider = ({ children }) => {
     setUser,
     createNewUser,
     userLogin,
+    resetPassword,
     logOut,
   };
 

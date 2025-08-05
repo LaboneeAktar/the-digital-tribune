@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { userLogin, setUser } = useContext(AuthContext);
+  const { user, userLogin, setUser, resetPassword } = useContext(AuthContext);
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
@@ -30,6 +30,15 @@ const Login = () => {
         setError({ ...err, login: "Wrong Password" });
       });
   };
+
+  // Reset Password/ Forget Password
+  const handleResetPassword = () => {
+    const userEmail = user.email;
+    resetPassword(userEmail)
+      .then(() => toast.success("Send Email for Reset. Please Check it."))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div>
       <div className="min-h-screen flex justify-center items-center">
@@ -69,13 +78,12 @@ const Login = () => {
                   required
                 />
                 <div className="flex justify-end">
-                  <Link
-                    rel="noopener noreferrer"
-                    href="#"
+                  <button
+                    onClick={handleResetPassword}
                     className="text-xs pt-2 hover:underline dark:text-gray-600"
                   >
                     Forgot password?
-                  </Link>
+                  </button>
                 </div>
                 {error.login && (
                   <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
