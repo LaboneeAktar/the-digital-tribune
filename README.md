@@ -1,8 +1,22 @@
 ## The Digital Tribune
 
-    <!-- - Live Link - [The Digital Tribune]() -->
+Live Link - [The Digital Tribune](https://digital-tribune.web.app/category/01)
 
 ### Features
+
+- **Category-Based News** – Organized coverage across multiple news categories for easy navigation.
+
+- **Headline Access** – Visitors can freely browse headlines without restrictions.
+
+- **Full Article Access** – Secure login or registration required to read complete articles.
+
+- **User Authentication** – Integrated login and registration system for account creation and management.
+
+- **About Page** – Professionally designed page outlining the platform’s mission, vision, and values.
+
+- **Career Page** – Dedicated section for job opportunities, benefits, and application details.
+
+- **Smooth Animations** – Enhanced user experience through visually appealing motion effects.
 
 ### Resources and Credits
 
