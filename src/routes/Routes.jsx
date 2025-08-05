@@ -10,6 +10,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import NewsDetails from "../Pages/NewsDetails";
 import PrivateRoute from "./PrivateRoute";
+import Loader from "../components/Loader";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
               fetch(
                 `https://openapi.programming-hero.com/api/news/category/${params.id}`
               ),
+            HydrateFallback: () => <Loader />,
           },
         ],
       },
@@ -68,5 +70,6 @@ export const router = createBrowserRouter([
     ),
     loader: ({ params }) =>
       fetch(`https://openapi.programming-hero.com/api/news/${params.id}`),
+    HydrateFallback: () => <Loader />,
   },
 ]);

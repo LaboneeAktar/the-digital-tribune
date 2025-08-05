@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../provider/AuthContext";
 
 const Navbar = () => {
   const [showDetails, setShowDetails] = useState(false);

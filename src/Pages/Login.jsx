@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../provider/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -77,7 +77,12 @@ const Login = () => {
                   className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800 mt-2"
                   required
                 />
-                <div className="flex justify-end">
+                <div className="flex justify-between">
+                  {error.login && (
+                    <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
+                      {error.login}
+                    </label>
+                  )}
                   <button
                     onClick={handleResetPassword}
                     className="text-xs pt-2 hover:underline dark:text-gray-600"
@@ -85,11 +90,6 @@ const Login = () => {
                     Forgot password?
                   </button>
                 </div>
-                {error.login && (
-                  <label className="block mb-2 pt-1 text-sm font-bold text-reddish">
-                    {error.login}
-                  </label>
-                )}
               </div>
               <div className="space-y-4 flex flex-col justify-center items-center pt-2">
                 <button

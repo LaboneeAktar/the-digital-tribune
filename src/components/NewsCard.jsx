@@ -3,7 +3,7 @@ import { BsBookmark } from "react-icons/bs";
 import { FaEye, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../provider/AuthContext";
 
 const NewsCard = ({ singleNews }) => {
   const { title, author, thumbnail_url, details, rating, total_view, _id } =
