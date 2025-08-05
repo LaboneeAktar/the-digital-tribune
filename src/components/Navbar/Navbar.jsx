@@ -92,7 +92,7 @@ const Navbar = () => {
             ) : (
               <div className="relative">
                 <img
-                  src={user.image}
+                  src={user.photoURL}
                   alt="Profile"
                   className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
                   onClick={() => setShowDetails(!showDetails)}
@@ -101,14 +101,14 @@ const Navbar = () => {
                 {/* Profile details dropdown */}
                 {showDetails && (
                   <div className="absolute -right-32 mt-2 w-64 bg-white rounded-md shadow-lg p-4 z-50 border border-gray-200">
-                    <div className="flex items-center space-x-4 mb-3 pt-4">
+                    <div className="flex items-center space-x-2 mb-3 pt-4">
                       <img
-                        src={user.imageUrl}
+                        src={user.photoURL}
                         alt="Profile"
                         className="w-12 h-12 rounded-full border"
                       />
                       <div>
-                        <h3 className="font-semibold">{user.name}</h3>
+                        <h3 className="font-semibold">{user.displayName}</h3>
                         <p className="text-sm text-gray-600">{user.email}</p>
                       </div>
                     </div>

@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Register = () => {
-  const [image, setImage] = useState(null);
-  const { createNewUser, setUser } = useContext(AuthContext);
+  const { createNewUser, updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,18 +16,22 @@ const Register = () => {
     const name = form.get("name");
     const email = form.get("email");
     const password = form.get("password");
-    const image = form.get("image");
-    const imageUrl = URL.createObjectURL(image);
-    setImage(imageUrl);
-    console.log({ name, email, password, image, imageUrl });
+    const imageUrl = form.get("image");
 
     // Create User
     createNewUser(email, password)
       .then((result) => {
         // Signed up
         const user = result.user;
-        setUser(user);
-        navigate("/");
+        // setUser(user);
+        console.log(user);
+        const userInfo = {
+          displayName: name,
+          photoURL: imageUrl,
+        };
+        updateUser(userInfo);
+
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -73,15 +79,32 @@ const Register = () => {
                   required
                 />
               </div>
+
+              <div className="mb-3">
+                <label
+                  className="form-label block mb-2 text-md font-bold"
+                  id="profile-picture"
+                >
+                  Image URL
+                </label>
+                <input
+                  type="imageURL"
+                  name="image"
+                  placeholder="Enter Your Image URL"
+                  className="w-full p-3  rounded-md bg-gray-200 dark:text-gray-800"
+                  required
+                />
+              </div>
+
               <div>
-                <label className="text-md font-bold ">Password</label>
+                <label className="text-md font-bold mb-2">Password</label>
 
                 <input
                   type="password"
                   name="password"
                   id="password"
                   placeholder="Enter Your Password"
-                  className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800"
+                  className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800 mt-2"
                   required
                 />
                 <div className="flex justify-end">
@@ -94,33 +117,7 @@ const Register = () => {
                   </Link>
                 </div>
               </div>
-              <div className="mb-3 relative">
-                <label
-                  className="form-label block mb-2 text-md font-bold"
-                  id="profile-picture"
-                >
-                  Upload Profile Picture
-                </label>
-                <input
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      setImage(URL.createObjectURL(file));
-                    }
-                  }}
-                  className=" w-full text-sm text-slate-800 file:mr-2 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-gray-200 hover:file:cursor-pointer"
-                />
-                {image && (
-                  <img
-                    src={image}
-                    className="absolute h-12 w-12 rounded-full -top-4 left-44 m-2"
-                    alt="Uploaded preview"
-                  />
-                )}
-              </div>
+
               <label className="label text-sm  mt-2" id="checkbox">
                 <input
                   type="checkbox"

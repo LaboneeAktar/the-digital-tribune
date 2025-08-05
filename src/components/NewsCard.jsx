@@ -95,6 +95,7 @@ const NewsCard = ({ singleNews }) => {
                         </Link>
                         <Link
                           to="/register"
+                          state={{ from: `/news/${_id}` }}
                           className="relative inline-flex items-center justify-start px-2 lg:px-7 py-2 overflow-hidden font-medium transition-all bg-gray-700 rounded  group"
                         >
                           <span className="w-48 h-48 rounded rotate-[-40deg] bg-reddish absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>

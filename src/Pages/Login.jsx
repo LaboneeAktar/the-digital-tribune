@@ -8,7 +8,7 @@ const Login = () => {
 
   const location = useLocation();
   const from = location.state?.from || "/";
-  console.log(location.state);
+  // console.log(location.state);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -64,7 +64,7 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="Enter Your Password"
-                  className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800"
+                  className="w-full p-3 rounded-md bg-gray-200 dark:text-gray-800 mt-2"
                   required
                 />
                 <div className="flex justify-end">
