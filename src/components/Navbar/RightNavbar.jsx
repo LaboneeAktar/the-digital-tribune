@@ -1,6 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthContext";
 import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
@@ -27,6 +27,19 @@ const RightNavbar = () => {
         console.error(err.message);
       });
   };
+
+  // Carousel Image
+  const images = [sliderImg1, sliderImg2, sliderImg3];
+
+  const [current, setCurrent] = useState(0);
+
+  // Auto slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <div>
@@ -80,41 +93,36 @@ const RightNavbar = () => {
 
       {/* Carousel */}
 
-      <div className="carousel w-full mt-5 bg-gray-200">
-        <div id="slide1" className="carousel-item relative w-full">
-          <img src={sliderImg1} className="w-full p-4" />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide3" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide2" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
+      <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg shadow-lg  mt-5">
+        {/* Images */}
+        <div
+          className="flex transition-transform duration-700"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {images.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Slide ${index}`}
+              className="w-full flex-shrink-0 object-cover h-64"
+            />
+          ))}
         </div>
-        <div id="slide2" className="carousel-item relative w-full">
-          <img src={sliderImg2} className="w-full p-4" />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide1" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide3" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
-        </div>
-        <div id="slide3" className="carousel-item relative w-full">
-          <img src={sliderImg3} className="w-full p-4" />
-          <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-            <a href="#slide2" className="btn btn-circle">
-              ❮
-            </a>
-            <a href="#slide1" className="btn btn-circle">
-              ❯
-            </a>
-          </div>
+
+        {/* Dots Navigation */}
+        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`w-1 h-1 rounded-full ${
+                index === current ? "bg-reddish" : "bg-gray-400"
+              }`}
+              onClick={() => setCurrent(index)}
+            ></button>
+          ))}
         </div>
       </div>
+
       <div
         className="mt-5 flex justify-center"
         style={{
