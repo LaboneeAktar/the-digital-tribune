@@ -143,7 +143,7 @@ const Career = () => {
                   type="submit"
                   className=" w-full relative inline-flex items-center justify-center px-2 lg:px-7 py-2 overflow-hidden font-medium transition-all bg-gray-700 rounded group mt-4"
                 >
-                  <span className="w-48 h-48 rounded rotate-[-40deg] bg-[#D72050] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+                  <span className="w-full h-48 rounded rotate-[-40deg] bg-[#D72050] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
                   <span className="relative w-full text-white text-center transition-colors duration-300 ease-in-out ">
                     Apply Now
                   </span>
@@ -152,6 +152,58 @@ const Career = () => {
             ))}
           </div>
         </motion.div>
+
+        {/* FAQ Section with DaisyUI Accordion */}
+        <motion.section
+          className="mt-20 rounded-lg shadow-md p-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-3xl font-semibold mb-6 text-center text-gray-700">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="space-y-3">
+            {[
+              {
+                q: "Can I apply without all listed qualifications?",
+                a: "Yes—please apply if you feel passionate, even if not all boxes are checked.",
+              },
+              {
+                q: "Do you offer remote or flexible work?",
+                a: "Yes, depending on the role and location, we offer flexible or hybrid work options.",
+              },
+              {
+                q: "What is the hiring process?",
+                a: "Our process includes application review, interviews, and a final selection phase.",
+              },
+              {
+                q: "Will I receive feedback if not selected?",
+                a: "Yes, we strive to provide constructive feedback whenever possible.",
+              },
+              {
+                q: "Can I apply for multiple positions?",
+                a: "Absolutely—you can apply for any roles that match your skills and interests.",
+              },
+            ].map((faq, i) => (
+              <div
+                key={i}
+                className="collapse collapse-arrow bg-base-100 border border-base-300"
+              >
+                <input type="checkbox" />
+                <div className="collapse-title text-lg font-medium">
+                  {faq.q}
+                </div>
+                <div className="collapse-content">
+                  <p className="text-gray-700">{faq.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
       </div>
     </div>
   );
