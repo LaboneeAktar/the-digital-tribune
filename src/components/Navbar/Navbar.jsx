@@ -109,7 +109,7 @@ const Navbar = () => {
                       />
                       <div>
                         <h3 className="font-semibold">{user.displayName}</h3>
-                        <p className="text-sm text-gray-600">{user.email}</p>
+                        <p className="text-xs text-gray-600">{user.email}</p>
                       </div>
                     </div>
                     <div className="flex justify-between gap-2 mt-10">
